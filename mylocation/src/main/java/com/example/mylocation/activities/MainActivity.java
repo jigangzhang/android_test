@@ -9,6 +9,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,9 +18,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.mylocation.R;
 import com.example.mylocation.fragment.MyTestFragment;
 
@@ -31,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends Activity implements View.OnClickListener{
+public class MainActivity extends Activity implements View.OnClickListener {
 
     @BindView(R.id.btn_test)
     Button mBtnTest;
@@ -45,6 +48,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
     TextView mTextTab3;
 
     PopupWindow popWindow;
+    @BindView(R.id.my_container)
+    RelativeLayout mMyContainer;
+    private ImageView fragment_img;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,9 @@ public class MainActivity extends Activity implements View.OnClickListener{
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
+        InsetDrawable id = new InsetDrawable(getResources().getDrawable(R.drawable.katon), 9,0,9,0);
+        mMyContainer.setBackground(id);
+        mBtnTest.setBackground(id);
         queryAppInfo();
         Bundle bundle = new Bundle();
         bundle.putInt("img", R.drawable.katon);
@@ -74,6 +83,20 @@ public class MainActivity extends Activity implements View.OnClickListener{
         Animator animator = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);    //属性动画 xml文件加载
         animator.setTarget(mBtnTest);
         animator.start();
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        fragment_img = (ImageView) getFragmentView();
+        Glide.with(this).load("http://f2.mob.com/null/2015/08/18/1439876700896.jpg").thumbnail(0.6f).into(fragment_img);    //glide框架
+    }
+
+    private View getFragmentView(){
+        ImageView img = (ImageView) getFragmentManager() //在Activity中获取fragment中的控件
+                .findFragmentById(R.id.container_fragment).getView().findViewById(R.id.img_fragment);
+        return img;
     }
 
     private void initPopupWindow() {
@@ -104,6 +127,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     Runnable mThread = new Runnable() {
         @Override
         public void run() {
+
             //   Double i = 2.34;
             Integer i = 12;
             char a = 'a';
@@ -146,23 +170,21 @@ public class MainActivity extends Activity implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.text_tab1:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mTextTab2,"alpha", 0, 1);    //属性动画代码实现
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mTextTab2, "alpha", 0, 1);    //属性动画代码实现
                 AnimatorSet animator = new AnimatorSet();
                 animator.play(objectAnimator);
                 animator.setDuration(2000);
                 animator.start();
                 break;
             case R.id.text_tab2:
-                if(popWindow != null && popWindow.isShowing()){
+                if (popWindow != null && popWindow.isShowing()) {
                     popWindow.dismiss();
-                }else
+                } else
                     initPopupWindow();
                 break;
             case R.id.text_tab3:
-                ImageView img = (ImageView) getFragmentManager() //在Activity中获取fragment中的控件
-                        .findFragmentById(R.id.container_fragment).getView().findViewById(R.id.img_fragment);
                 Animator animatorSet = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);
-                animatorSet.setTarget(img);
+                animatorSet.setTarget(fragment_img);
                 animatorSet.start();
                 break;
         }
@@ -186,8 +208,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK){
-            if(popWindow != null && popWindow.isShowing()){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (popWindow != null && popWindow.isShowing()) {
                 popWindow.dismiss();
             }
             return true;
@@ -198,7 +220,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if(popWindow!=null && popWindow.isShowing()){
+        if (popWindow != null && popWindow.isShowing()) {
             popWindow.dismiss();
         }
     }
