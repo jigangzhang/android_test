@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="@android:integer/config_longAnimTime">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp"/>
+            <gradient android:type="linear"
+                      android:startColor="#018"
+                      android:centerColor="#923"
+                      android:endColor="#394"/>
+            <stroke android:color="#111"
+                    android:width="5dp"/>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/katon" android:state_focused="true"/>
+    <item android:drawable="@drawable/shape_test" android:state_focused="false"/>
+</selector>
