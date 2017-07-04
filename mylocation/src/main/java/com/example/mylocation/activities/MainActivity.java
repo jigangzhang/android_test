@@ -7,6 +7,7 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.InsetDrawable;
@@ -90,7 +91,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         fragment_img = (ImageView) getFragmentView();
-        Glide.with(this).load("http://f2.mob.com/null/2015/08/18/1439876700896.jpg").thumbnail(0.6f).into(fragment_img);    //glide框架
+        Glide.with(this).load("http://img.zcool.cn/community/014415578e4e920000018c1b9f183b.gif").thumbnail(1).into(fragment_img);    //glide框架
     }
 
     private View getFragmentView(){
@@ -134,7 +135,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             boolean t = true;
             //  int i = 18;
             String str = "eventbus received";
-            EventBus.getDefault().post(a);    //只传送包装数据类型，如：String,Boolean,Integer,自定义类等；不能传送基本数据类型，eg:int,boolean,char 等.
+            EventBus.getDefault().post(a);    //只传送包装数据类型，如：String,Boolean,Integer,自定义类等；不能传送基本数据类型，eg:int,boolean,char etc.
             System.out.println("eventbus posted -->" + Thread.currentThread());
         }
     };
@@ -153,6 +154,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Animator animator = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);
         animator.setTarget(mTextTab3);
         animator.start();
+        Glide.with(this).load("http://imga.deyi.com/forum/201605/13/144155gnfekdk0grn0kb5s.gif").into(fragment_img);
     }
 
     public void queryAppInfo() {
@@ -174,7 +176,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 AnimatorSet animator = new AnimatorSet();
                 animator.play(objectAnimator);
                 animator.setDuration(2000);
-                animator.start();
+           //     animator.start();
+                Intent intent = new Intent(MainActivity.this, DrawActivity.class);
+                startActivity(intent);
                 break;
             case R.id.text_tab2:
                 if (popWindow != null && popWindow.isShowing()) {
@@ -196,6 +200,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.text1:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, DrawActivity.class);
+                startActivity(intent);
                 break;
             case R.id.text2:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
