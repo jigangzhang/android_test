@@ -11,9 +11,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -29,7 +31,10 @@ import android.view.View;
  */
 
 public class MyView extends View {
+
     private int memory;
+    private Bitmap bitmap;
+
     public MyView(Context context) {
         super(context);
         memory = (int) (Runtime.getRuntime().totalMemory()/1024)/1024;
@@ -59,7 +64,7 @@ public class MyView extends View {
         RectF rectF = new RectF(200, 200, 800, 400);
         canvas.drawOval(rectF, getPaint(Color.RED, 5, Paint.Style.STROKE));
 
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.katon);
+        bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.katon);
     //    ScaleDrawable scale = new ScaleDrawable(drawable, Gravity.CENTER, 0.5f, 0.5f);
         bitmap = Bitmap.createScaledBitmap(bitmap, 100, 200, false);    //缩放bitmap
 
@@ -67,5 +72,26 @@ public class MyView extends View {
 
         Drawable drawable = getResources().getDrawable(R.drawable.katon);
         drawable.draw(canvas);
+
+        Matrix matrix = new Matrix();   //矩阵 对图形三维变换
+        matrix.setTranslate(500,500);
+     //   matrix.setRotate(45, 500, 500);
+     //   matrix.setScale(2,2);
+    //    matrix.setSkew(5,5);
+      //  canvas.drawBitmap(bitmap,matrix,paint);
+
+        matrix.preTranslate(100,100);
+        matrix.preRotate(20,100,100);
+        canvas.drawBitmap(bitmap, matrix, paint);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        if(bitmap != null && !bitmap.isRecycled()){
+            bitmap.recycle();
+            Log.i("MyTest", "bitmap --> recycle");
+        }
     }
 }

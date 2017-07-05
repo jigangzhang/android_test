@@ -12,6 +12,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,6 +144,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("MyTest", "mainActivity --> destroy");
         EventBus.getDefault().unregister(this);
 
     }
@@ -190,6 +192,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Animator animatorSet = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);
                 animatorSet.setTarget(fragment_img);
                 animatorSet.start();
+                Intent i = new Intent(MainActivity.this, WindowTestActivity.class);
+                startActivity(i);
                 break;
         }
     }
@@ -217,8 +221,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (popWindow != null && popWindow.isShowing()) {
                 popWindow.dismiss();
-            }
-            return true;
+            }else
+                finish();
+            return false;   //true or false 是否拦截请求
         }
         return super.onKeyDown(keyCode, event);
     }

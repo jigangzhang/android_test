@@ -9,6 +9,7 @@ package com.example.mylocation.activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 
 import com.example.mylocation.MyView;
@@ -48,6 +49,7 @@ public class DrawActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.i("MyTest","drawActivity--> destroy");
     }
 
 }
