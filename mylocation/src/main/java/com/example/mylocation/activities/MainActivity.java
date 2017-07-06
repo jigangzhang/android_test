@@ -36,6 +36,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.bumptech.glide.Glide.with;
+
 public class MainActivity extends Activity implements View.OnClickListener {
 
     @BindView(R.id.btn_test)
@@ -156,7 +158,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         Animator animator = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);
         animator.setTarget(mTextTab3);
         animator.start();
-        Glide.with(this).load("http://imga.deyi.com/forum/201605/13/144155gnfekdk0grn0kb5s.gif").into(fragment_img);
+        with(this).load("http://imga.deyi.com/forum/201605/13/144155gnfekdk0grn0kb5s.gif").into(fragment_img);
     }
 
     public void queryAppInfo() {
@@ -191,7 +193,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.text_tab3:
                 Animator animatorSet = new AnimatorInflater().loadAnimator(this, R.animator.animator_test);
                 animatorSet.setTarget(fragment_img);
-                animatorSet.start();
+           //     animatorSet.start();
                 Intent i = new Intent(MainActivity.this, WindowTestActivity.class);
                 startActivity(i);
                 break;
@@ -209,6 +211,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.text2:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
+                Intent intent1 = new Intent(MainActivity.this, RandomActivity.class);
+                startActivity(intent1);
                 break;
             case R.id.text3:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();

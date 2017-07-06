@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="commit"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@android:color/darker_gray">
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/img_back"
+            android:paddingBottom="5dp"/>
+        <EditText
+            android:id="@+id/edit_radom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/img_back"
+            android:layout_toLeftOf="@+id/text_search"
+            android:drawableLeft="@drawable/img_back"
+            android:focusableInTouchMode="false"
+            android:background="@drawable/shape_edit_back"
+            android:layout_margin="3dp"/>
+        <TextView
+            android:id="@+id/text_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:text="取消"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_getdata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="getdata"/>
+    <TextView
+        android:id="@+id/text_show_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

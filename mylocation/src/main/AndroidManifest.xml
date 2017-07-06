@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".activities.DrawActivity"></activity>
         <activity android:name=".activities.WindowTestActivity"></activity>
+        <activity android:name=".activities.RandomActivity"></activity>
     </application>
 
 </manifest>

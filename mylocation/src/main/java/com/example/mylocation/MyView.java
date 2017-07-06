@@ -37,7 +37,7 @@ public class MyView extends View {
 
     public MyView(Context context) {
         super(context);
-        memory = (int) (Runtime.getRuntime().totalMemory()/1024)/1024;
+        memory = (int) (Runtime.getRuntime().totalMemory()/1024)/1024;  //获取内存
     }
 
     private Paint getPaint(int color, float width, Paint.Style style){
