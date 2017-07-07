@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mylocation.R;
+import com.example.mylocation.bean.SearchRecordInfo;
+import com.example.mylocation.dao.RecordInfoDao;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -49,6 +54,7 @@ public class RandomActivity extends AppCompatActivity {
         for (int i = 0; i < 10; ++i) {
             mTextShowData.append("\nrandom=" + (random.nextInt(100) + 1));      //生产随机数  [0~100)
         }
+        getDate();
     }
 
     private boolean saveDataIntoSharedPreferences(Context context, String key, Object value) {
@@ -101,6 +107,18 @@ public class RandomActivity extends AppCompatActivity {
 
     }
 
+    private void getDate(){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            Calendar c = Calendar.getInstance();
+            c.get(Calendar.DAY_OF_YEAR);
+        }
+        java.util.Calendar calendar = java.util.Calendar.getInstance();
+        int i = calendar.get(java.util.Calendar.DAY_OF_YEAR);
+        mTextShowData.setText("day="+i);
+
+        Date date = new Date(System.currentTimeMillis());
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -118,16 +136,29 @@ public class RandomActivity extends AppCompatActivity {
 
     @OnClick({R.id.btn_commit, R.id.btn_getdata})
     public void onViewClicked(View view) {
+        RecordInfoDao infoDao = new RecordInfoDao(this);
+        String text;
         switch (view.getId()) {
             case R.id.btn_commit:
                 int i = produceRadom();
                 saveDataIntoSharedPreferences(this, "radom", i);
                 String str = "\nradom=" + i;
-                mTextShowData.append(str);
+                text = mEditRadom.getText().toString();
+                SearchRecordInfo info = new SearchRecordInfo( text, System.currentTimeMillis());
+                infoDao.add(info);
+                mTextShowData.setText(info.toString());
                 break;
             case R.id.btn_getdata:
                 int m = getDataFromSharedPreferences(this, "radom", 1);
-                mTextShowData.append("\nget: radom=" + m);
+              //  mTextShowData.append("\nget: radom=" + m);
+                text = mEditRadom.getText().toString();
+                List<SearchRecordInfo> list = infoDao.queryByRecord(text);
+                if(list.size() > 0) {
+                    for (SearchRecordInfo info1 : list) {
+                        mTextShowData.append(info1.toString());
+                    }
+                }else
+                    mTextShowData.setText("list is null");
                 break;
         }
     }
