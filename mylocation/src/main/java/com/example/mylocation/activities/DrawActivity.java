@@ -15,15 +15,6 @@ import android.view.View;
 import com.example.mylocation.MyView;
 
 /**
- * @company: 甘肃诚诚网络技术有限公司
- * @project: MyApplication
- * @package: com.example.mylocation.activities
- * @version: V1.0
- * @author: 任强强
- * @date: 2017/7/4 9:13
- * @description: <p>
- * <p>
- * </p>
  */
 
 public class DrawActivity extends AppCompatActivity {

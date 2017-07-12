@@ -12,4 +12,12 @@
         <item name="android:windowExitAnimation">@anim/anim_pop_exit</item>
     </style>
 
+    <style name="dialog.notitle" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">#595656</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowNoDisplay">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 </resources>

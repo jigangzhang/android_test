@@ -6,11 +6,13 @@ package com.example.mylocation.activities;
  * 日期 2017/7/6 9:39
  */
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.icu.util.Calendar;
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.mylocation.R;
 import com.example.mylocation.bean.SearchRecordInfo;
+import com.example.mylocation.dao.RecordDao;
 import com.example.mylocation.dao.RecordInfoDao;
 
 import java.util.Date;
@@ -44,6 +47,7 @@ public class RandomActivity extends AppCompatActivity {
     TextView mTextShowData;
     @BindView(R.id.edit_radom)
     EditText mEditRadom;
+    ProgressDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +59,13 @@ public class RandomActivity extends AppCompatActivity {
             mTextShowData.append("\nrandom=" + (random.nextInt(100) + 1));      //生产随机数  [0~100)
         }
         getDate();
+        dialog = new ProgressDialog(this, R.style.dialog_notitle);
+        dialog.setCancelable(true);
+        dialog.setIndeterminate(true);
+        dialog.setMessage("loading...");
+        dialog.show();
+
+        NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
     }
 
     private boolean saveDataIntoSharedPreferences(Context context, String key, Object value) {
@@ -145,7 +156,9 @@ public class RandomActivity extends AppCompatActivity {
                 String str = "\nradom=" + i;
                 text = mEditRadom.getText().toString();
                 SearchRecordInfo info = new SearchRecordInfo( text, System.currentTimeMillis());
-                infoDao.add(info);
+            //    infoDao.add(info);
+                RecordDao dao = new RecordDao(this);
+                dao.add(info);
                 mTextShowData.setText(info.toString());
                 break;
             case R.id.btn_getdata:
@@ -166,5 +179,13 @@ public class RandomActivity extends AppCompatActivity {
     @OnClick(R.id.edit_radom)
     public void onViewClicked() {
         Toast.makeText(this,"edit click..", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
 }

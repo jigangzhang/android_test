@@ -54,6 +54,7 @@ public class MyView extends View {
         super.onDraw(canvas);
 
         String str = "total memory:"+memory;
+        int i= canvas.getMaximumBitmapWidth(); int n = canvas.getWidth();Log.i("MyTest","i,n:"+i+","+n);
 
         Paint paint = getPaint(Color.rgb(2,5,7), 2, Paint.Style.FILL_AND_STROKE);
         paint.setTextSize(50);
@@ -67,6 +68,8 @@ public class MyView extends View {
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.katon);
     //    ScaleDrawable scale = new ScaleDrawable(drawable, Gravity.CENTER, 0.5f, 0.5f);
         bitmap = Bitmap.createScaledBitmap(bitmap, 100, 200, false);    //缩放bitmap
+
+
 
         canvas.drawBitmap(bitmap, 200, 100, getPaint(Color.BLACK, 1, Paint.Style.STROKE));
 

@@ -5,8 +5,11 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -216,8 +219,26 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.text3:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(MainActivity.this, NfcConfigActivity.class);
+                startActivity(intent2);
                 break;
         }
+    }
+
+    private void produceDialog(){
+        new AlertDialog.Builder(this).setMessage("exit app ?")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.exit(0);
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                //dialog.dismiss();
+            }
+        }).create().show();
     }
 
     @Override
@@ -225,8 +246,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (popWindow != null && popWindow.isShowing()) {
                 popWindow.dismiss();
-            }else
-                finish();
+            }else {
+               ProgressDialog.show(this,"please waiting...","waiting for a moment",true,false);
+              //  produceDialog();
+             //   finish();
+            }
             return false;   //true or false 是否拦截请求
         }
         return super.onKeyDown(keyCode, event);

@@ -24,7 +24,7 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
     public static final String dbName = "db_record";
     public static int version = 1;
 
-    public static OrmLiteHelper instance;
+    private static OrmLiteHelper instance;
 
     private OrmLiteHelper(Context context) {        //构造方法私有化
         super(context, dbName, null, version);
