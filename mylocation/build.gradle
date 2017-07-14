@@ -38,4 +38,6 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.j256.ormlite:ormlite-android:5.0'
+    compile 'org.xutils:xutils:3.5.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }

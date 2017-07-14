@@ -97,7 +97,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         fragment_img = (ImageView) getFragmentView();
-        Glide.with(this).load("http://img.zcool.cn/community/014415578e4e920000018c1b9f183b.gif").thumbnail(1).into(fragment_img);    //glide框架
+        Glide.with(this).load("http://img.zcool.cn/community/014415578e4e920000018c1b9f183b.gif").skipMemoryCache(true).thumbnail(1).into(fragment_img);    //glide框架
     }
 
     private View getFragmentView(){

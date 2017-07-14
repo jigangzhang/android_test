@@ -15,19 +15,13 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.support.annotation.Px;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
 /**
- * @company: 甘肃诚诚网络技术有限公司
- * @project: MyApplication
- * @package: com.example.mylocation
- * @version: V1.0
- * @author: 任强强
- * @date: 2017/7/4 9:15
- * @description: <p>
- * <p>
- * </p>
  */
 
 public class MyView extends View {
@@ -47,6 +41,31 @@ public class MyView extends View {
         paint.setStrokeWidth(width);    //设置笔芯宽度
         paint.setStyle(style);
         return paint;
+    }
+
+    public MyView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    public void onDrawForeground(Canvas canvas) {
+        super.onDrawForeground(canvas);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    public void layout(@Px int l, @Px int t, @Px int r, @Px int b) {
+        super.layout(l, t, r, b);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        
     }
 
     @Override

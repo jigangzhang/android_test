@@ -20,4 +20,10 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="noStatusbar" parent="Theme.AppCompat">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
 </resources>
