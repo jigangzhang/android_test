@@ -219,7 +219,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.text3:
                 Toast.makeText(this, "click...", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(MainActivity.this, NfcConfigActivity.class);
+                Intent intent2 = new Intent(MainActivity.this, OpenGLActivity.class);
                 startActivity(intent2);
                 break;
         }

@@ -48,7 +48,7 @@ public class WindowTestActivity extends AppCompatActivity {
     }
     private void init(){
         WindowManager.LayoutParams wl = new WindowManager.LayoutParams();
-        wl.type = WindowManager.LayoutParams.TYPE_APPLICATION;
+        wl.type = WindowManager.LayoutParams.LAST_APPLICATION_WINDOW;
         wl.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
         wl.gravity = Gravity.CENTER;
         wl.width = width/2;

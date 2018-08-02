@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.NFC"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".activities.MyApplication"
@@ -47,6 +48,7 @@
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
                        android:resource="@xml/nfc_tech_filter"/>
         </activity>
+        <activity android:name=".activities.OpenGLActivity" />
     </application>
 
 </manifest>
